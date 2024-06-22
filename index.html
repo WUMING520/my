@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>支付宝充值话费</title>
+</head>
+<body>
+    <h1>充值话费</h1>
+    <button id="rechargeButton">充值话费</button>
+
+    <script>
+        document.getElementById('rechargeButton').addEventListener('click', function() {
+            fetch('/api/recharge', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    outTradeNo: '2024062200001',
+                    totalAmount: '88.88',
+                    subject: '手机充值'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('充值成功');
+                } else {
+                    alert('充值失败: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('请求失败');
+            });
+        });
+    </script>
+</body>
+</html>
